@@ -7,5 +7,6 @@ export default {
       sans: ["Lato", "Helvetica", "Arial", "system-ui"],
     },
   },
+  darkMode: "class",
   plugins: [],
 };
