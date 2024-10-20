@@ -4,11 +4,21 @@ import { IoInvertMode } from "react-icons/io5";
 import { GoStack } from "react-icons/go";
 import { HiUserCircle } from "react-icons/hi2";
 import Home from "./Components/Home";
+import Profile from "./Components/Profile";
+import SignIn from "./Components/SignIn";
+import SignUp from "./Components/SignUp";
 import "./App.css";
 
 function App() {
   const [theme, setTheme] = useState("light");
   const [userData, setUserData] = useState(null);
+  const [hasAccount, setHasAccount] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem("hasAccount")) {
+      setHasAccount(localStorage.getItem("hasAccount"));
+    }
+  }, []);
 
   useEffect(() => {
     if (localStorage.getItem("theme")) {
@@ -29,7 +39,7 @@ function App() {
 
   return (
     <div className={theme}>
-      <div className="flex flex-col justify-between h-screen bg-zinc-200 dark:bg-zinc-900">
+      <div className="flex flex-col justify-between h-screen bg-zinc-200 dark:bg-zinc-900 dark:text-zinc-200">
         <header className="flex justify-between items-center p-4 bg-zinc-300 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-300">
           <h1 className="kaushan-script-regular text-2xl ">
             <NavLink to="/flash-focus/">Flash Focus</NavLink>
@@ -60,9 +70,42 @@ function App() {
           <Route path="/" element={<Navigate to="/flash-focus/" />} />
           <Route
             path="/flash-focus/"
-            element={<Home userData={userData} setUserData={setUserData} />}
+            element={
+              <Home
+                userData={userData}
+                setUserData={setUserData}
+                hasAccount={hasAccount}
+                setHasAccount={setHasAccount}
+              />
+            }
           />
           <Route path="/flash-focus/decks" element={<h2>Decks</h2>} />
+          <Route
+            path="/flash-focus/profile"
+            element={
+              <Profile
+                hasAccount={hasAccount}
+                setHasAccount={setHasAccount}
+                userData={userData}
+                setUserData={setUserData}
+              />
+            }
+          />
+          <Route
+            path="/flash-focus/signin"
+            element={<SignIn setUserData={setUserData} userData={userData} />}
+          />
+          <Route
+            path="/flash-focus/signup"
+            element={
+              <SignUp
+                setUserData={setUserData}
+                userData={userData}
+                hasAccount={hasAccount}
+                setHasAccount={setHasAccount}
+              />
+            }
+          />
         </Routes>
         <footer className=" bg-zinc-300 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-300"></footer>
       </div>

@@ -1,11 +1,12 @@
-import SignIn from "./SignIn";
+import { useEffect } from "react";
 import SignUp from "./SignUp";
+import SignIn from "./SignIn";
 import SignOut from "./SignOut";
 
-const Home = ({ userData, setUserData, hasAccount, setHasAccount }) => {
+const Profile = ({ userData, setUserData, hasAccount, setHasAccount }) => {
   return (
     <div>
-      <h2>Home</h2>
+      <h2>Profile</h2>
       {userData && userData.email ? (
         <SignOut setUserData={setUserData} />
       ) : hasAccount === true ? (
@@ -22,4 +23,4 @@ const Home = ({ userData, setUserData, hasAccount, setHasAccount }) => {
   );
 };
 
-export default Home;
+export default Profile;

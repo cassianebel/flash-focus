@@ -4,9 +4,14 @@ import { createUserInDatabase } from "../firestoreUtils";
 import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 
-function GoogleSignIn({ setUserData, userData }) {
+function GoogleSignIn({ setUserData, userData, hasAccount, setHasAccount }) {
   const navigate = useNavigate();
   const provider = new GoogleAuthProvider();
+
+  const saveAccountStatus = () => {
+    localStorage.setItem("hasAccount", true);
+    setHasAccount(true);
+  };
 
   const handleGoogleSignIn = async () => {
     try {
@@ -22,6 +27,7 @@ function GoogleSignIn({ setUserData, userData }) {
       }));
       // Create or update user in Firestore
       await createUserInDatabase({ email: authUser.email, uid: authUser.uid });
+      saveAccountStatus();
       navigate("/flash-focus/decks");
     } catch (error) {
       console.error("Error during sign-in:", error.message);
