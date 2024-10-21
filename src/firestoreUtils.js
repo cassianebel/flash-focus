@@ -1,4 +1,12 @@
-import { doc, setDoc } from "firebase/firestore";
+import {
+  doc,
+  setDoc,
+  query,
+  orderBy,
+  collection,
+  getDocs,
+  where,
+} from "firebase/firestore";
 import { db } from "./firebase";
 
 export const createUserInDatabase = async (user) => {
@@ -15,5 +23,20 @@ export const createUserInDatabase = async (user) => {
     console.log("User data saved to Firestore");
   } catch (error) {
     console.error("Error creating/updating user in Firestore:", error.message);
+  }
+};
+
+export const fetchPublicDecks = async () => {
+  try {
+    const decksCollectionRef = collection(db, "Decks");
+    const decksQuery = query(decksCollectionRef, where("public", "==", true));
+    const querySnapshot = await getDocs(decksQuery);
+    const decks = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    return decks;
+  } catch (error) {
+    console.error("Error fetching decks:", error.message);
   }
 };

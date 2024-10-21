@@ -7,6 +7,7 @@ import Home from "./Components/Home";
 import Profile from "./Components/Profile";
 import SignIn from "./Components/SignIn";
 import SignUp from "./Components/SignUp";
+import Decks from "./Components/Decks";
 import "./App.css";
 
 function App() {
@@ -81,7 +82,10 @@ function App() {
               />
             }
           />
-          <Route path="/flash-focus/decks" element={<h2>Decks</h2>} />
+          <Route
+            path="/flash-focus/decks"
+            element={<Decks userData={userData} />}
+          />
           <Route
             path="/flash-focus/profile"
             element={
