@@ -20,7 +20,7 @@ function SignUp({ setUserData, userData, hasAccount, setHasAccount }) {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       saveAccountStatus();
-      navigate("/flash-focus/signin");
+      navigate("/flash-focus/decks");
     } catch (error) {
       setError(error.message);
     }
