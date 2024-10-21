@@ -4,7 +4,7 @@ import SignOut from "./SignOut";
 
 const Home = ({ userData, setUserData, hasAccount, setHasAccount }) => {
   return (
-    <div>
+    <>
       <h2>Home</h2>
       {userData && userData.email ? (
         <SignOut setUserData={setUserData} />
@@ -18,7 +18,7 @@ const Home = ({ userData, setUserData, hasAccount, setHasAccount }) => {
           setHasAccount={setHasAccount}
         />
       )}
-    </div>
+    </>
   );
 };
 

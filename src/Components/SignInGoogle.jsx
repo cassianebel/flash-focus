@@ -36,7 +36,10 @@ function GoogleSignIn({ setUserData, userData, hasAccount, setHasAccount }) {
   };
 
   return (
-    <button onClick={handleGoogleSignIn} className="">
+    <button
+      onClick={handleGoogleSignIn}
+      className="w-full my-3 p-2 px-4 bg-zinc-800 text-zinc-300 rounded-md flex items-center justify-center gap-2 hover:bg-zinc-700 dark:bg-zinc-300 dark:text-zinc-900 dark:hover:bg-zinc-200"
+    >
       <span>Sign in with Google</span>
       <FcGoogle />
     </button>
