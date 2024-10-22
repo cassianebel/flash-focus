@@ -1,22 +1,32 @@
-import SignIn from "./SignIn";
 import SignUp from "./SignUp";
-import SignOut from "./SignOut";
+import { NavLink } from "react-router-dom";
 
-const Home = ({ userData, setUserData, hasAccount, setHasAccount }) => {
+const Home = ({ user }) => {
   return (
     <>
-      <h2>Home</h2>
-      {userData && userData.email ? (
-        <SignOut setUserData={setUserData} />
-      ) : hasAccount === true ? (
-        <SignIn setUserData={setUserData} userData={userData} />
+      {user ? (
+        <div>
+          <p className="text-center">Welcome Back!</p>
+          <p className="text-center my-3">
+            What would you like to focus on today?
+          </p>
+          <div className="flex justify-center gap-5">
+            <NavLink
+              to="/flash-focus/decks"
+              className="text-xl p-2 px-4 rounded-md bg-zinc-800 text-zinc-300"
+            >
+              Study Existing Decks
+            </NavLink>
+            <NavLink
+              to="/flash-focus/create"
+              className="text-xl p-2 px-4 rounded-md bg-zinc-800 text-zinc-300"
+            >
+              Create a New Deck
+            </NavLink>
+          </div>
+        </div>
       ) : (
-        <SignUp
-          userData={userData}
-          setUserData={setUserData}
-          hasAccount={hasAccount}
-          setHasAccount={setHasAccount}
-        />
+        <SignUp />
       )}
     </>
   );
