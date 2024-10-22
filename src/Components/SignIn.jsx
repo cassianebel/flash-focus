@@ -5,7 +5,7 @@ import { createUserInDatabase } from "../firestoreUtils";
 import { useNavigate } from "react-router-dom";
 import GoogleSignIn from "./SignInGoogle";
 
-function SignIn({ setUserData, userData }) {
+function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -16,11 +16,6 @@ function SignIn({ setUserData, userData }) {
     try {
       const results = await signInWithEmailAndPassword(auth, email, password);
       const authUser = results.user;
-      setUserData((prevUserData) => ({
-        ...prevUserData,
-        email: authUser.email,
-        uid: authUser.uid,
-      }));
       // Create or update user in Firestore
       await createUserInDatabase({ email: authUser.email, uid: authUser.uid });
       navigate("/flash-focus/decks");
@@ -62,7 +57,7 @@ function SignIn({ setUserData, userData }) {
         </button>
       </form>
       <p className="my-2 text-center text-lg kaushan-script-regular">- OR -</p>
-      <GoogleSignIn setUserData={setUserData} userData={userData} />
+      <GoogleSignIn />
       <p className="mt-5">
         No Account?{" "}
         <button

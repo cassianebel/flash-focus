@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { Route, Routes, Navigate, NavLink } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "./firebase";
 import { IoInvertMode } from "react-icons/io5";
 import { GoStack } from "react-icons/go";
 import { HiUserCircle } from "react-icons/hi2";
@@ -9,18 +11,12 @@ import SignIn from "./Components/SignIn";
 import SignUp from "./Components/SignUp";
 import Decks from "./Components/Decks";
 import Deck from "./Components/Deck";
+import CreateDeck from "./Components/CreateDeck";
 import "./App.css";
 
 function App() {
   const [theme, setTheme] = useState("light");
-  const [userData, setUserData] = useState(null);
-  const [hasAccount, setHasAccount] = useState(false);
-
-  useEffect(() => {
-    if (localStorage.getItem("hasAccount")) {
-      setHasAccount(localStorage.getItem("hasAccount"));
-    }
-  }, []);
+  const [user] = useAuthState(auth);
 
   useEffect(() => {
     if (localStorage.getItem("theme")) {
@@ -41,7 +37,7 @@ function App() {
 
   return (
     <div className={theme}>
-      <div className="flex flex-col justify-between h-screen bg-zinc-200 text-zinc-900 dark:bg-zinc-900 dark:text-zinc-200">
+      <div className="flex flex-col justify-between min-h-screen bg-zinc-200 text-zinc-900 dark:bg-zinc-900 dark:text-zinc-200">
         <header className="flex justify-between items-center p-4 bg-zinc-300 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-300">
           <h1 className="kaushan-script-regular text-2xl ">
             <NavLink to="/flash-focus/">Flash Focus</NavLink>
@@ -72,48 +68,22 @@ function App() {
         </header>
         <Routes>
           <Route path="/" element={<Navigate to="/flash-focus/" />} />
+          <Route path="/flash-focus/" element={<Home user={user} />} />
           <Route
-            path="/flash-focus/"
-            element={
-              <Home
-                userData={userData}
-                setUserData={setUserData}
-                hasAccount={hasAccount}
-                setHasAccount={setHasAccount}
-              />
-            }
+            path="/flash-focus/create"
+            element={<CreateDeck user={user} />}
           />
+          <Route path="/flash-focus/decks" element={<Decks user={user} />} />
           <Route
-            path="/flash-focus/decks"
-            element={<Decks userData={userData} />}
+            path="/flash-focus/decks/:deckId"
+            element={<Deck user={user} />}
           />
-          <Route path="/flash-focus/decks/:deckId" element={<Deck />} />
           <Route
             path="/flash-focus/profile"
-            element={
-              <Profile
-                hasAccount={hasAccount}
-                setHasAccount={setHasAccount}
-                userData={userData}
-                setUserData={setUserData}
-              />
-            }
+            element={<Profile user={user} />}
           />
-          <Route
-            path="/flash-focus/signin"
-            element={<SignIn setUserData={setUserData} userData={userData} />}
-          />
-          <Route
-            path="/flash-focus/signup"
-            element={
-              <SignUp
-                setUserData={setUserData}
-                userData={userData}
-                hasAccount={hasAccount}
-                setHasAccount={setHasAccount}
-              />
-            }
-          />
+          <Route path="/flash-focus/signin" element={<SignIn />} />
+          <Route path="/flash-focus/signup" element={<SignUp />} />
         </Routes>
         <footer className=" bg-zinc-300 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-300"></footer>
       </div>

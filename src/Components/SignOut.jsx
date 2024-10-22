@@ -2,14 +2,13 @@ import { auth } from "../firebase";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
-function SignOut({ setUserData }) {
+function SignOut() {
   const navigate = useNavigate();
 
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
-        setUserData({});
-        //navigate("/flash-focus/signin");
+        navigate("/flash-focus/profile");
       })
       .catch((error) => {
         console.error("Error signing out:", error);

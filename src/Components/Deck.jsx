@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { doc, getDoc, collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 
-const Deck = () => {
+const Deck = ({ user }) => {
   const { deckId } = useParams();
   const [deck, setDeck] = useState(null);
   const [cards, setCards] = useState([]);

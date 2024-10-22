@@ -4,22 +4,16 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import GoogleSignIn from "./SignInGoogle";
 
-function SignUp({ setUserData, userData, hasAccount, setHasAccount }) {
+function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const saveAccountStatus = () => {
-    localStorage.setItem("hasAccount", true);
-    setHasAccount(true);
-  };
-
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      saveAccountStatus();
       navigate("/flash-focus/decks");
     } catch (error) {
       setError(error.message);
@@ -59,12 +53,7 @@ function SignUp({ setUserData, userData, hasAccount, setHasAccount }) {
         </button>
       </form>
       <p className="my-2 text-center text-lg kaushan-script-regular">- OR -</p>
-      <GoogleSignIn
-        setUserData={setUserData}
-        userData={userData}
-        hasAccount={hasAccount}
-        setHasAccount={setHasAccount}
-      />
+      <GoogleSignIn />
       <p className="mt-5">
         Have an Account?{" "}
         <button

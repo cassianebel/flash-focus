@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { fetchPublicDecks } from "../firestoreUtils";
 
-const Decks = ({ userData }) => {
+const Decks = ({ user }) => {
   const [publicDecks, setPublicDecks] = useState([]);
 
   useEffect(() => {
@@ -21,7 +21,10 @@ const Decks = ({ userData }) => {
       <ul className="flex flex-wrap justify-center gap-5">
         {publicDecks.map((deck) => (
           <li key={deck.id} className="p-5">
-            <NavLink to={`${deck.id}`} className="text-xl">
+            <NavLink
+              to={`${deck.id}`}
+              className="text-xl p-3 px-5 rounded-md bg-zinc-800 text-zinc-300"
+            >
               {deck.title}
             </NavLink>
           </li>
