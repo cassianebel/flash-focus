@@ -39,3 +39,18 @@ export const fetchPublicDecks = async () => {
     console.error("Error fetching decks:", error.message);
   }
 };
+
+export const fetchPrivateDecks = async (userID) => {
+  try {
+    const decksCollectionRef = collection(db, "Decks");
+    const decksQuery = query(decksCollectionRef, where("userID", "==", userID));
+    const querySnapshot = await getDocs(decksQuery);
+    const decks = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    return decks;
+  } catch (error) {
+    console.error("Error fetching decks:", error.message);
+  }
+};
