@@ -23,7 +23,7 @@ const Decks = ({ user }) => {
           <li key={deck.id} className="p-5">
             <NavLink
               to={`${deck.id}`}
-              className="text-xl p-3 px-5 rounded-md bg-zinc-800 text-zinc-300"
+              className={`text-xl p-3 px-5 rounded-md bg-${deck.color}-400 dark:bg-${deck.color}-600`}
             >
               {deck.title}
             </NavLink>
