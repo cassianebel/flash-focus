@@ -29,7 +29,7 @@ const Decks = ({ user }) => {
               <li key={deck.id} className="p-5">
                 <NavLink
                   to={`${deck.id}`}
-                  className={`text-xl p-3 px-5 rounded-md bg-${deck.color}-400 dark:bg-${deck.color}-600`}
+                  className={`text-xl p-3 px-5 rounded-md bg-${deck.color}-400 dark:bg-${deck.color}-700`}
                 >
                   {deck.title}
                 </NavLink>
@@ -46,7 +46,7 @@ const Decks = ({ user }) => {
             <li key={deck.id} className="p-5">
               <NavLink
                 to={`${deck.id}`}
-                className={`text-xl p-3 px-5 rounded-md bg-${deck.color}-400 dark:bg-${deck.color}-600`}
+                className={`text-xl p-3 px-5 rounded-md bg-${deck.color}-400 dark:bg-${deck.color}-700`}
               >
                 {deck.title}
               </NavLink>

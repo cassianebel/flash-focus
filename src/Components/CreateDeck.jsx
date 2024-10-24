@@ -124,7 +124,7 @@ const CreateDeck = ({ user }) => {
               name="deck-title"
               onChange={(e) => setDeckTitle(e.target.value)}
               required
-              className="block w-full p-2 mb-2 border border-zinc-300 rounded-md dark:border-zinc-700 dark:bg-zinc-800"
+              className="block w-full p-2 mb-2 border border-zinc-300 rounded-md dark:border-zinc-600 dark:bg-zinc-800"
             />
           </div>
           <div>
@@ -167,7 +167,7 @@ const CreateDeck = ({ user }) => {
             {flashcards.map((flashcard, index) => (
               <div
                 key={index}
-                className="p-4 my-3 bg-zinc-300 dark:bg-zinc-700 rounded-md"
+                className="p-4 my-3 bg-zinc-300 dark:bg-zinc-600 rounded-md"
               >
                 <label className="block mx-2">Question {index + 1}</label>
                 <input
@@ -176,7 +176,7 @@ const CreateDeck = ({ user }) => {
                   value={flashcard.question}
                   onChange={(e) => handleFlashcardChange(index, e)}
                   required
-                  className="block w-full p-2 mb-2 border border-zinc-300 rounded-md dark:border-zinc-700 dark:bg-zinc-800"
+                  className="block w-full p-2 mb-2 border border-zinc-300 rounded-md dark:border-zinc-600 dark:bg-zinc-800"
                 />
                 <label className="block mx-2">Answer {index + 1}</label>
                 <input
@@ -185,7 +185,7 @@ const CreateDeck = ({ user }) => {
                   value={flashcard.answer}
                   onChange={(e) => handleFlashcardChange(index, e)}
                   required
-                  className="block w-full p-2 mb-2 border border-zinc-300 rounded-md dark:border-zinc-700 dark:bg-zinc-800"
+                  className="block w-full p-2 mb-2 border border-zinc-300 rounded-md dark:border-zinc-600 dark:bg-zinc-800"
                 />
               </div>
             ))}
