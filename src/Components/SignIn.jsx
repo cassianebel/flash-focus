@@ -18,7 +18,7 @@ function SignIn() {
       const authUser = results.user;
       // Create or update user in Firestore
       await createUserInDatabase({ email: authUser.email, uid: authUser.uid });
-      navigate("/flash-focus/decks");
+      // navigate("/flash-focus/decks");
     } catch (error) {
       setError(error.message);
     }

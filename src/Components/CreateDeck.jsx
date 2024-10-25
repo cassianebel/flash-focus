@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import SignIn from "./SignIn";
+import { IoIosAddCircle, IoIosRemoveCircle } from "react-icons/io";
 
 const CreateDeck = ({ user }) => {
   const [deckTitle, setDeckTitle] = useState("");
@@ -167,7 +168,7 @@ const CreateDeck = ({ user }) => {
             {flashcards.map((flashcard, index) => (
               <div
                 key={index}
-                className="p-4 my-3 bg-zinc-300 dark:bg-zinc-600 rounded-md"
+                className="p-4 my-3 bg-zinc-200 dark:bg-zinc-600 rounded-md"
               >
                 <label className="block mx-2">Question {index + 1}</label>
                 <input
@@ -189,20 +190,22 @@ const CreateDeck = ({ user }) => {
                 />
               </div>
             ))}
-            <button
-              type="button"
-              onClick={addFlashcard}
-              className="my-3 me-3 p-2 px-4 bg-zinc-950 text-zinc-300 rounded-md hover:bg-zinc-900 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-50"
-            >
-              Add another flashcard
-            </button>
-            <button
-              type="button"
-              onClick={removeLastCard}
-              className="my-3 p-2 px-4 bg-zinc-950 text-zinc-300 rounded-md hover:bg-zinc-900 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-50"
-            >
-              Remove last flashcard
-            </button>
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={addFlashcard}
+                className="flex items-center gap-2 my-3 me-3 p-2 px-4 bg-zinc-800 text-zinc-300 rounded-md hover:bg-zinc-900 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-50"
+              >
+                <IoIosAddCircle /> Add another flashcard
+              </button>
+              <button
+                type="button"
+                onClick={removeLastCard}
+                className="flex items-center gap-2 my-3 p-2 px-4 bg-zinc-700 text-zinc-200 rounded-md hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-50"
+              >
+                <IoIosRemoveCircle /> Remove last flashcard
+              </button>
+            </div>
           </div>
         </div>
         <button

@@ -8,8 +8,8 @@ const Card = ({ children }) => {
 
   let xi = 0;
   let yi = 0;
-  let opacityFramesOriginal = 200;
-  let opacityFrames = 200;
+  let opacityFramesOriginal = 400;
+  let opacityFrames = 400;
 
   // Function to animate the card swipe-out
   const swipeOut = (xStart, yStart) => {
