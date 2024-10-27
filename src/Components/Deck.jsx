@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { doc, getDoc, collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 import Card from "./Card";
@@ -192,10 +193,19 @@ const Deck = ({ user }) => {
             {cards.length !== 0 && (
               <button
                 onClick={() => setFlipped(!flipped)}
-                className={`p-2 px-4 bg-zinc-950 text-zinc-400 rounded-md hover:bg-zinc-700 dark:bg-zinc-100 dark:text-zinc-700 dark:hover:bg-zinc-50`}
+                className="p-2 px-4 bg-zinc-950 text-zinc-300 rounded-md hover:bg-zinc-900 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-50"
               >
                 Flip the Deck
               </button>
+            )}
+
+            {deck.userID === user.uid && (
+              <NavLink
+                to={`/flash-focus/edit/${deckId}`}
+                className="p-2 px-4 bg-zinc-950 text-zinc-300 rounded-md hover:bg-zinc-900 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-50"
+              >
+                Edit Deck
+              </NavLink>
             )}
           </div>
         </div>

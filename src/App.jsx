@@ -12,6 +12,7 @@ import SignUp from "./Components/SignUp";
 import Decks from "./Components/Decks";
 import Deck from "./Components/Deck";
 import CreateDeck from "./Components/CreateDeck";
+import EditDeck from "./Components/EditDeck";
 import "./App.css";
 
 function App() {
@@ -77,6 +78,10 @@ function App() {
           <Route
             path="/flash-focus/decks/:deckId"
             element={<Deck user={user} />}
+          />
+          <Route
+            path="/flash-focus/edit/:deckId"
+            element={<EditDeck user={user} />}
           />
           <Route
             path="/flash-focus/profile"
