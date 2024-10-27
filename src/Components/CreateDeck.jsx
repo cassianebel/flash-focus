@@ -170,7 +170,9 @@ const CreateDeck = ({ user }) => {
                 key={index}
                 className="p-4 my-3 bg-zinc-200 dark:bg-zinc-600 rounded-md"
               >
-                <label className="block mx-2">Question {index + 1}</label>
+                <label className="block mx-2">
+                  Question / Front {index + 1}
+                </label>
                 <input
                   type="text"
                   name="question"
@@ -179,7 +181,7 @@ const CreateDeck = ({ user }) => {
                   required
                   className="block w-full p-2 mb-2 border border-zinc-300 rounded-md dark:border-zinc-600 dark:bg-zinc-800"
                 />
-                <label className="block mx-2">Answer {index + 1}</label>
+                <label className="block mx-2">Answer / Back {index + 1}</label>
                 <input
                   type="text"
                   name="answer"
@@ -201,7 +203,7 @@ const CreateDeck = ({ user }) => {
               <button
                 type="button"
                 onClick={removeLastCard}
-                className="flex items-center gap-2 my-3 p-2 px-4 bg-zinc-700 text-zinc-200 rounded-md hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-50"
+                className="flex items-center gap-2 my-3 p-2 px-4 bg-zinc-700 text-zinc-200 rounded-md hover:bg-zinc-800 dark:bg-zinc-200 dark:text-zinc-900 dark:hover:bg-zinc-100"
               >
                 <IoIosRemoveCircle /> Remove last flashcard
               </button>

@@ -16,7 +16,7 @@
 .card {
   position: relative;
   transform-style: preserve-3d;
-  cursor: move;
+  cursor: pointer;
   grid-area: center;
   width: 500px;
   height: 300px;

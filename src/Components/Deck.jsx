@@ -9,6 +9,7 @@ const Deck = ({ user }) => {
   const [deck, setDeck] = useState(null);
   const [cards, setCards] = useState([]);
   const [flipped, setFlipped] = useState(false);
+  const [initialCards, setInitialCards] = useState([]);
 
   useEffect(() => {
     const fetchDeckAndCards = async () => {
@@ -25,6 +26,7 @@ const Deck = ({ user }) => {
           }));
           fetchedCards = shuffleArray(fetchedCards);
           setCards(fetchedCards);
+          setInitialCards(fetchedCards);
         } else {
           console.log("Deck not found");
         }
@@ -44,6 +46,8 @@ const Deck = ({ user }) => {
     }
     return array;
   };
+
+  const resetDeck = () => setCards(shuffleArray(initialCards));
 
   const bgColor = {
     red: "bg-red-400 dark:bg-red-600",
@@ -152,35 +156,46 @@ const Deck = ({ user }) => {
             {deck.title}
           </h2>
           <div className="card-container">
-            {cards.map((card) => (
-              <Card key={card.id}>
-                <div
-                  className={`front flex items-center justify-center ${
-                    questionColor[deck.color]
-                  }`}
-                >
-                  <p className="text-2xl text-center m-6">
-                    {flipped ? card.answer : card.question}
-                  </p>
-                </div>
-                <div
-                  className={`back flex items-center justify-center ${
-                    answerColor[deck.color]
-                  }`}
-                >
-                  <p className="text-2xl text-center m-6 ">
-                    {flipped ? card.question : card.answer}
-                  </p>
-                </div>
-              </Card>
-            ))}
+            {cards.length === 0 ? (
+              <button
+                onClick={resetDeck}
+                className="p-2 px-4 bg-zinc-950 text-zinc-300 rounded-md hover:bg-zinc-900 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-50"
+              >
+                Reset Deck
+              </button>
+            ) : (
+              cards.map((card) => (
+                <Card key={card.id} setCards={setCards}>
+                  <div
+                    className={`front flex items-center justify-center ${
+                      questionColor[deck.color]
+                    }`}
+                  >
+                    <p className="text-2xl text-center m-6">
+                      {flipped ? card.answer : card.question}
+                    </p>
+                  </div>
+                  <div
+                    className={`back flex items-center justify-center ${
+                      answerColor[deck.color]
+                    }`}
+                  >
+                    <p className="text-2xl text-center m-6 ">
+                      {flipped ? card.question : card.answer}
+                    </p>
+                  </div>
+                </Card>
+              ))
+            )}
           </div>
-          <button
-            onClick={() => setFlipped(!flipped)}
-            className={`p-2 px-4 bg-zinc-950 text-zinc-300 rounded-md hover:bg-zinc-900 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-50`}
-          >
-            Flip the Deck
-          </button>
+          {cards.length !== 0 && (
+            <button
+              onClick={() => setFlipped(!flipped)}
+              className={`p-2 px-4 bg-zinc-950 text-zinc-300 rounded-md hover:bg-zinc-900 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-50`}
+            >
+              Flip the Deck
+            </button>
+          )}
         </div>
       )}
     </>

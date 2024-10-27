@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSwipeable } from "react-swipeable";
 
-const Card = ({ children }) => {
+const Card = ({ children, setCards }) => {
   const [transform, setTransform] = useState({ x: 0, y: 0 });
   const [opacity, setOpacity] = useState(1);
   const [cardVisible, setCardVisible] = useState(true);
@@ -38,6 +38,11 @@ const Card = ({ children }) => {
   const handlers = useSwipeable({
     onSwiped: (eventData) => {
       swipeOut(eventData.deltaX, eventData.deltaY);
+      setCards((prevCards) => {
+        const newCards = prevCards.slice(1);
+        console.log("Cards after swipe:", newCards);
+        return newCards;
+      });
     },
     onSwiping: (eventData) => {
       setTransform({ x: eventData.deltaX, y: eventData.deltaY });
@@ -46,12 +51,6 @@ const Card = ({ children }) => {
     onSwipedRight: () => console.log("Swiped Right!"),
     trackMouse: true, // Allows mouse swiping
   });
-
-  // Reset card's position and opacity after pan ends
-  const handlePanEnd = () => {
-    setTransform({ x: 0, y: 0 });
-    setOpacity(1);
-  };
 
   const handleFlip = (e) => {
     const card = e.currentTarget;
@@ -65,8 +64,6 @@ const Card = ({ children }) => {
   return cardVisible ? (
     <div
       {...handlers}
-      onMouseUp={handlePanEnd}
-      onTouchEnd={handlePanEnd}
       onClick={handleFlip}
       style={{
         transform: `translate(${transform.x}px, ${
