@@ -38,11 +38,7 @@ const Card = ({ children, setCards }) => {
   const handlers = useSwipeable({
     onSwiped: (eventData) => {
       swipeOut(eventData.deltaX, eventData.deltaY);
-      setCards((prevCards) => {
-        const newCards = prevCards.slice(1);
-        console.log("Cards after swipe:", newCards);
-        return newCards;
-      });
+      setCards((prevCards) => prevCards.slice(1));
     },
     onSwiping: (eventData) => {
       setTransform({ x: eventData.deltaX, y: eventData.deltaY });
@@ -51,6 +47,22 @@ const Card = ({ children, setCards }) => {
     onSwipedRight: () => console.log("Swiped Right!"),
     trackMouse: true, // Allows mouse swiping
   });
+
+  const handleKeyDown = (e) => {
+    if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+      swipeOut(e.key === "ArrowRight" ? 1000 : -1000, 0);
+      setCards((prevCards) => prevCards.slice(1));
+      focusNextCard();
+    }
+  };
+
+  const focusNextCard = () => {
+    const nextCard = document.querySelectorAll(".card");
+    console.log("Next card:", nextCard[1]);
+    if (nextCard[1]) {
+      nextCard[1].focus();
+    }
+  };
 
   const handleFlip = (e) => {
     const card = e.currentTarget;
@@ -62,9 +74,10 @@ const Card = ({ children, setCards }) => {
   };
 
   return cardVisible ? (
-    <div
+    <button
       {...handlers}
       onClick={handleFlip}
+      onKeyDown={handleKeyDown}
       style={{
         transform: `translate(${transform.x}px, ${
           transform.y
@@ -74,7 +87,7 @@ const Card = ({ children, setCards }) => {
       className="card shadow-md"
     >
       {children}
-    </div>
+    </button>
   ) : null;
 };
 
