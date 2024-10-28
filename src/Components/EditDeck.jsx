@@ -95,6 +95,9 @@ const EditDeck = ({ user }) => {
     if (!user) {
       console.error("You must be signed in to edit a deck.");
       return;
+    } else if (user.uid !== deck.userID) {
+      console.error("You do not have permission to edit this deck.");
+      return;
     }
 
     const updatedData = {
@@ -195,12 +198,34 @@ const EditDeck = ({ user }) => {
     );
   };
 
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    if (user.uid !== deck.userID) {
+      console.error("You do not have permission to delete this deck.");
+      return;
+    }
+    try {
+      const deckRef = doc(db, "Decks", deckId);
+      await deleteDoc(deckRef);
+      console.log("Deck deleted successfully!");
+      navigate("/flash-focus/decks");
+    } catch (error) {
+      console.error("Error deleting deck:", error);
+    }
+  };
+
   if (!user) {
     return (
       <>
         <p className="text-center">You need to sign in to edit a deck.</p>
         <SignIn />
       </>
+    );
+  } else if (user.uid !== deck?.userID) {
+    return (
+      <p className="text-center">
+        You do not have permission to edit this deck.
+      </p>
     );
   }
 
@@ -315,11 +340,39 @@ const EditDeck = ({ user }) => {
             </div>
           </div>
         </div>
+        <div className="flex gap-5 justify-center items center">
+          <button
+            type="submit"
+            className="my-3 p-2 px-4 bg-zinc-950 text-zinc-300 rounded-md hover:bg-zinc-900 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-50"
+          >
+            Update Deck
+          </button>
+          <button
+            onClick={() => navigate(`/flash-focus/decks/${deckId}`)}
+            className="my-3 p-2 px-4 bg-zinc-950 text-zinc-300 rounded-md hover:bg-zinc-900 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-50"
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+      <form
+        onSubmit={handleDelete}
+        className="border border-red-600 rounded-lg my-10 p-5"
+      >
+        <h3 className="text-center text-2xl my-5 ">Danger Zone</h3>
+        <p className="my-4">
+          This action is irreversible. Are you sure you want to delete this deck
+          and all of it's cards?
+        </p>
+        <label className="block my-4">
+          <input type="checkbox" required className="m-1" />
+          Yes, I understand the consequences of this action.
+        </label>
         <button
           type="submit"
-          className="w-full my-3 p-2 px-4 bg-zinc-950 text-zinc-300 rounded-md hover:bg-zinc-900 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-50"
+          className="block my-4 mx-auto p-2 px-4 bg-red-600 text-zinc-100 rounded-md hover:bg-red-700 dark:bg-red-700 dark:text-zinc-300 dark:hover:bg-red-800"
         >
-          Update Deck
+          Delete Deck
         </button>
       </form>
     </div>

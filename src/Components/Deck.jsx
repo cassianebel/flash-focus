@@ -110,7 +110,7 @@ const Deck = ({ user }) => {
     purple:
       "bg-purple-200 text-purple-700 dark:bg-purple-600 dark:text-purple-100",
     fuchsia:
-      "bg-fucshia-200 text-fucshia-700 dark:bg-fucshia-600 dark:text-fucshia-100",
+      "bg-fuchsia-200 text-fuchsia-700 dark:bg-fuchsia-600 dark:text-fuchsia-100",
     pink: "bg-pink-200 text-pink-700 dark:bg-pink-600 dark:text-pink-100",
     rose: "bg-rose-200 text-rose-700 dark:bg-rose-600 dark:text-rose-100",
   };
@@ -136,7 +136,7 @@ const Deck = ({ user }) => {
     purple:
       "bg-purple-100 text-purple-800 dark:bg-purple-700 dark:text-purple-200",
     fuchsia:
-      "bg-fucshia-100 text-fucshia-800 dark:bg-fucshia-700 dark:text-fucshia-200",
+      "bg-fuchsia-100 text-fuchsia-800 dark:bg-fuchsia-700 dark:text-fuchsia-200",
     pink: "bg-pink-100 text-pink-800 dark:bg-pink-700 dark:text-pink-200",
     rose: "bg-rose-100 text-rose-800 dark:bg-rose-700 dark:text-rose-200",
   };
