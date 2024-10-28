@@ -5,30 +5,45 @@ const Card = ({ children, setCards }) => {
   const [transform, setTransform] = useState({ x: 0, y: 0 });
   const [opacity, setOpacity] = useState(1);
   const [cardVisible, setCardVisible] = useState(true);
+  const [isSwiping, setIsSwiping] = useState(false);
 
   let xi = 0;
-  let yi = 0;
-  let opacityFramesOriginal = 400;
-  let opacityFrames = 400;
+  const opacityFramesOriginal = 20;
+  let opacityFrames = opacityFramesOriginal;
 
   // Function to animate the card swipe-out
-  const swipeOut = (xStart, yStart) => {
+  const swipeOut = (xStart) => {
     const animate = () => {
       const xNext = xStart + xi;
-      const yNext = yStart + yi;
-      setTransform({ x: xNext, y: yNext });
-      setOpacity(1 / opacityFrames);
+      setTransform({ x: xNext, y: 0 }); // Keep y constant at 0
+      setOpacity(opacityFrames / opacityFramesOriginal);
 
-      // Update xi and yi for animation
-      xi += xStart < 0 ? -1 : 1;
-      yi += yStart < 0 ? -1 : 1;
+      // Update xi for animation
+      xi += xStart < 0 ? -5 : 5;
 
       opacityFrames--;
 
-      if (opacityFrames > opacityFramesOriginal - 10) {
+      if (opacityFrames > 0) {
         requestAnimationFrame(animate);
-      } else {
-        setCardVisible(false); // Remove card after animation
+      }
+    };
+    requestAnimationFrame(animate);
+  };
+
+  // Function to animate card to snap back to original position and opacity
+  const snapBack = () => {
+    let opacityFrames = -20;
+    const animate = () => {
+      const xNext = xi;
+      setTransform({ x: xNext, y: 0 });
+      setOpacity(opacityFrames / opacityFramesOriginal);
+
+      xi += xi > 0 ? -5 : 5;
+
+      opacityFrames++;
+
+      if (opacityFrames <= opacityFramesOriginal) {
+        requestAnimationFrame(animate);
       }
     };
     requestAnimationFrame(animate);
@@ -36,37 +51,51 @@ const Card = ({ children, setCards }) => {
 
   // Handlers for swipeable events
   const handlers = useSwipeable({
-    onSwiped: (eventData) => {
-      swipeOut(eventData.deltaX, eventData.deltaY);
-      setCards((prevCards) => prevCards.slice(1));
-    },
     onSwiping: (eventData) => {
-      setTransform({ x: eventData.deltaX, y: eventData.deltaY });
+      setIsSwiping(true);
+      setTransform({ x: eventData.deltaX, y: 0 });
     },
-    onSwipedLeft: () => console.log("Swiped Left!"),
-    onSwipedRight: () => console.log("Swiped Right!"),
+    onSwipedLeft: () => {
+      swipeOut(-100);
+      setCardVisible(false); // Remove card after animation
+      setCards((prevCards) => prevCards.slice(1)); // Remove the card from the deck
+      setIsSwiping(false);
+    },
+    onSwipedRight: () => {
+      swipeOut(100);
+      snapBack();
+      setCards((prevCards) => [...prevCards.slice(1), prevCards[0]]); // move the card to the end of the deck
+      setIsSwiping(false);
+    },
     trackMouse: true, // Allows mouse swiping
   });
 
   const handleKeyDown = (e) => {
-    if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
-      swipeOut(e.key === "ArrowRight" ? 1000 : -1000, 0);
+    if (e.key === "ArrowLeft") {
+      swipeOut(-100);
+      setCardVisible(false);
       setCards((prevCards) => prevCards.slice(1));
+      focusNextCard();
+    } else if (e.key === "ArrowRight") {
+      swipeOut(100);
+      snapBack();
+      setCards((prevCards) => [...prevCards.slice(1), prevCards[0]]);
       focusNextCard();
     }
   };
 
   const focusNextCard = () => {
     const nextCard = document.querySelectorAll(".card");
-    console.log("Next card:", nextCard[1]);
     if (nextCard[1]) {
       nextCard[1].focus();
     }
   };
 
   const handleFlip = (e) => {
-    const card = e.currentTarget;
-    card.classList.toggle("flipped");
+    if (!isSwiping) {
+      const card = e.currentTarget;
+      card.classList.toggle("flipped");
+    }
   };
 
   const rotation = () => {
