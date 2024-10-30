@@ -3,6 +3,7 @@ import { auth } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import GoogleSignIn from "./SignInGoogle";
+import Button from "./Button";
 
 function SignUp() {
   const [email, setEmail] = useState("");
@@ -45,12 +46,7 @@ function SignUp() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button
-          type="submit"
-          className="w-full my-3 p-2 px-4 bg-zinc-950 text-zinc-300 rounded-md hover:bg-zinc-900 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-50"
-        >
-          Sign Up
-        </button>
+        <Button text="Sign Up" type="submit" style="primary" />
       </form>
       <p className="my-2 text-center text-lg kaushan-script-regular">- OR -</p>
       <GoogleSignIn />

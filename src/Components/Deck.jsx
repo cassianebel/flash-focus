@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import { doc, getDoc, collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 import Card from "./Card";
+import Button from "./Button";
 
 const Deck = ({ user }) => {
   const { deckId } = useParams();
@@ -158,12 +159,7 @@ const Deck = ({ user }) => {
           </h2>
           <div className="card-container">
             {cards.length === 0 ? (
-              <button
-                onClick={resetDeck}
-                className="p-2 px-4 bg-zinc-950 text-zinc-400 rounded-md hover:bg-zinc-700 dark:bg-zinc-100 dark:text-zinc-700 dark:hover:bg-zinc-50"
-              >
-                Start Again
-              </button>
+              <Button text="Start Again" action={resetDeck} style="primary" />
             ) : (
               cards.map((card) => (
                 <Card key={card.id} setCards={setCards}>
@@ -191,18 +187,19 @@ const Deck = ({ user }) => {
           </div>
           <div className="flex gap-5">
             {cards.length !== 0 && (
-              <button
-                onClick={() => setFlipped(!flipped)}
-                className="p-2 px-4 bg-zinc-950 text-zinc-300 rounded-md hover:bg-zinc-900 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-50"
-              >
-                Flip the Deck
-              </button>
+              <div>
+                <Button
+                  text="Flip the Deck"
+                  action={() => setFlipped(!flipped)}
+                  style="secondary"
+                />
+              </div>
             )}
 
             {deck.userID === user.uid && (
               <NavLink
                 to={`/flash-focus/edit/${deckId}`}
-                className="p-2 px-4 bg-zinc-950 text-zinc-300 rounded-md hover:bg-zinc-900 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-50"
+                className="my-3 p-2 px-4 bg-zinc-950 text-zinc-300 rounded-md hover:bg-zinc-900 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-50"
               >
                 Edit Deck
               </NavLink>

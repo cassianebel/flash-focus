@@ -4,6 +4,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import SignIn from "./SignIn";
 import { IoIosAddCircle, IoIosRemoveCircle } from "react-icons/io";
+import Button from "./Button";
 
 const CreateDeck = ({ user }) => {
   const [deckTitle, setDeckTitle] = useState("");
@@ -192,30 +193,27 @@ const CreateDeck = ({ user }) => {
                 />
               </div>
             ))}
-            <div className="flex gap-3">
-              <button
-                type="button"
-                onClick={addFlashcard}
-                className="flex items-center gap-2 my-3 me-3 p-2 px-4 bg-zinc-800 text-zinc-300 rounded-md hover:bg-zinc-900 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-50"
-              >
-                <IoIosAddCircle /> Add another flashcard
-              </button>
-              <button
-                type="button"
-                onClick={removeLastCard}
-                className="flex items-center gap-2 my-3 p-2 px-4 bg-zinc-700 text-zinc-200 rounded-md hover:bg-zinc-800 dark:bg-zinc-200 dark:text-zinc-900 dark:hover:bg-zinc-100"
-              >
-                <IoIosRemoveCircle /> Remove last flashcard
-              </button>
+            <div className="flex flex-wrap">
+              <div className="me-3">
+                <Button
+                  text="Add another flashcard"
+                  action={addFlashcard}
+                  icon={<IoIosAddCircle />}
+                  style="primary"
+                />
+              </div>
+              <div>
+                <Button
+                  text="Remove last flashcard"
+                  action={removeLastCard}
+                  icon={<IoIosRemoveCircle />}
+                  style="secondary"
+                />
+              </div>
             </div>
           </div>
         </div>
-        <button
-          type="submit"
-          className="w-full my-3 p-2 px-4 bg-zinc-950 text-zinc-300 rounded-md hover:bg-zinc-900 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-50"
-        >
-          Create Deck
-        </button>
+        <Button text="Create Deck" style="primary" type="submit" />
       </form>
     </div>
   );

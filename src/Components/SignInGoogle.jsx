@@ -3,6 +3,7 @@ import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { createUserInDatabase } from "../firestoreUtils";
 import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
+import Button from "./Button";
 
 function GoogleSignIn() {
   const navigate = useNavigate();
@@ -25,13 +26,12 @@ function GoogleSignIn() {
   };
 
   return (
-    <button
-      onClick={handleGoogleSignIn}
-      className="w-full my-3 p-2 px-4 bg-zinc-800 text-zinc-300 rounded-md flex items-center justify-center gap-2 hover:bg-zinc-700 dark:bg-zinc-300 dark:text-zinc-900 dark:hover:bg-zinc-200"
-    >
-      <span>Sign in with Google</span>
-      <FcGoogle />
-    </button>
+    <Button
+      text="Sign in with Google"
+      action={handleGoogleSignIn}
+      style="secondary"
+      icon={<FcGoogle />}
+    />
   );
 }
 

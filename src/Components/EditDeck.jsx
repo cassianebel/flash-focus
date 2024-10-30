@@ -12,6 +12,7 @@ import {
 import { db } from "../firebase";
 import SignIn from "./SignIn";
 import { IoIosAddCircle, IoIosRemoveCircle } from "react-icons/io";
+import Button from "./Button";
 
 const EditDeck = ({ user }) => {
   const { deckId } = useParams();
@@ -310,49 +311,52 @@ const EditDeck = ({ user }) => {
                   required
                   className="block w-full p-2 mb-2 border border-zinc-300 rounded-md dark:border-zinc-600 dark:bg-zinc-800"
                 />
-                {flashcard.toBeDeleted === true ? (
-                  <button
-                    type="button"
-                    onClick={() => handleAddBackCard(flashcard.id)}
-                    className="flex items-center gap-2 my-3 p-2 px-4 bg-zinc-700 text-zinc-200 rounded-md hover:bg-zinc-800 dark:bg-zinc-200 dark:text-zinc-900 dark:hover:bg-zinc-100"
-                  >
-                    <IoIosAddCircle /> Add Card Back
-                  </button>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={() => handleDeleteCard(flashcard.id)}
-                    className="flex items-center gap-2 my-3 p-2 px-4 bg-zinc-700 text-zinc-200 rounded-md hover:bg-zinc-800 dark:bg-zinc-200 dark:text-zinc-900 dark:hover:bg-zinc-100"
-                  >
-                    <IoIosRemoveCircle /> Remove Card
-                  </button>
-                )}
+                <div className="flex">
+                  {flashcard.toBeDeleted === true ? (
+                    <div>
+                      <Button
+                        text="Add Card Back"
+                        action={() => handleAddBackCard(flashcard.id)}
+                        style="primary"
+                        icon={<IoIosAddCircle />}
+                      />
+                    </div>
+                  ) : (
+                    <div>
+                      <Button
+                        text="Remove Card"
+                        action={() => handleDeleteCard(flashcard.id)}
+                        style="primary"
+                        icon={<IoIosRemoveCircle />}
+                      />
+                    </div>
+                  )}
+                </div>
               </div>
             ))}
-            <div className="flex gap-3">
-              <button
-                type="button"
-                onClick={addFlashcard}
-                className="flex items-center gap-2 my-3 me-3 p-2 px-4 bg-zinc-800 text-zinc-300 rounded-md hover:bg-zinc-900 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-50"
-              >
-                <IoIosAddCircle /> Add another flashcard
-              </button>
+            <div className="flex">
+              <div>
+                <Button
+                  text="Add another flashcard"
+                  action={addFlashcard}
+                  style="primary"
+                  icon={<IoIosAddCircle />}
+                />
+              </div>
             </div>
           </div>
         </div>
-        <div className="flex gap-5 justify-center items center">
-          <button
-            type="submit"
-            className="my-3 p-2 px-4 bg-zinc-950 text-zinc-300 rounded-md hover:bg-zinc-900 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-50"
-          >
-            Update Deck
-          </button>
-          <button
-            onClick={() => navigate(`/flash-focus/decks/${deckId}`)}
-            className="my-3 p-2 px-4 bg-zinc-950 text-zinc-300 rounded-md hover:bg-zinc-900 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-50"
-          >
-            Cancel
-          </button>
+        <div className="flex justify-center items center my-6 ">
+          <div className="me-3">
+            <Button text="Update Deck" style="primary" type="submit" />
+          </div>
+          <div>
+            <Button
+              text="Cancel"
+              style="secondary"
+              action={() => navigate(`/flash-focus/decks/${deckId}`)}
+            />
+          </div>
         </div>
       </form>
       <form
@@ -368,12 +372,11 @@ const EditDeck = ({ user }) => {
           <input type="checkbox" required className="m-1" />
           Yes, I understand the consequences of this action.
         </label>
-        <button
-          type="submit"
-          className="block my-4 mx-auto p-2 px-4 bg-red-600 text-zinc-100 rounded-md hover:bg-red-700 dark:bg-red-700 dark:text-zinc-300 dark:hover:bg-red-800"
-        >
-          Delete Deck
-        </button>
+        <div className="flex justify-center">
+          <div>
+            <Button text="Delete Deck" style="danger" type="submit" />
+          </div>
+        </div>
       </form>
     </div>
   );
