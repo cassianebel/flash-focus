@@ -13,6 +13,7 @@ import { db } from "../firebase";
 import SignIn from "./SignIn";
 import { IoIosAddCircle, IoIosRemoveCircle } from "react-icons/io";
 import Button from "./Button";
+import Input from "./Input";
 
 const EditDeck = ({ user }) => {
   const { deckId } = useParams();
@@ -238,17 +239,12 @@ const EditDeck = ({ user }) => {
       <form onSubmit={handleSubmit}>
         <div className="md:flex gap-5 items-center">
           <div className="grow">
-            <label htmlFor="deck-title" className="block mx-2">
-              Deck Title
-            </label>
-            <input
-              value={deckTitle}
-              type="text"
-              id="deck-title"
+            <Input
+              label="Deck Title"
               name="deck-title"
-              onChange={(e) => setDeckTitle(e.target.value)}
-              required
-              className="block w-full p-2 mb-2 border border-zinc-300 rounded-md dark:border-zinc-600 dark:bg-zinc-800"
+              value={deckTitle}
+              changeHandler={(e) => setDeckTitle(e.target.value)}
+              required={true}
             />
           </div>
           <div>
@@ -264,16 +260,12 @@ const EditDeck = ({ user }) => {
           </div>
         </div>
         <div className="my-5">
-          <label htmlFor="deck-description" className="block mx-2">
-            Deck Description
-          </label>
-          <textarea
-            value={deckDescription}
-            id="deck-description"
+          <Input
+            label="Deck Description"
             name="deck-description"
-            onChange={(e) => setDeckDescription(e.target.value)}
-            required
-            className="block w-full p-2 mb-2 border border-zinc-300 rounded-md dark:border-zinc-600 dark:bg-zinc-800"
+            type="text"
+            value={deckDescription}
+            changeHandler={(e) => setDeckDescription(e.target.value)}
           />
         </div>
         <div className="md:flex gap-5">
@@ -307,26 +299,22 @@ const EditDeck = ({ user }) => {
                 className="p-4 my-3 bg-zinc-200 dark:bg-zinc-600 rounded-md"
                 style={flashcard.toBeDeleted === true ? { opacity: "25%" } : {}}
               >
-                <label className="block mx-2">
-                  Question / Front {index + 1}
-                </label>
-                <input
-                  type="text"
+                <Input
+                  label={`Question / Front ${index + 1}`}
                   name="question"
+                  type="text"
                   value={flashcard.question}
-                  onChange={(e) => handleFlashcardChange(index, e)}
-                  required
-                  className="block w-full p-2 mb-2 border border-zinc-300 rounded-md dark:border-zinc-600 dark:bg-zinc-800"
+                  changeHandler={(e) => handleFlashcardChange(index, e)}
+                  required={true}
                   maxLength={200}
                 />
-                <label className="block mx-2">Answer / Back {index + 1}</label>
-                <input
-                  type="text"
+                <Input
+                  label={`Answer / Back ${index + 1}`}
                   name="answer"
+                  type="text"
                   value={flashcard.answer}
-                  onChange={(e) => handleFlashcardChange(index, e)}
-                  required
-                  className="block w-full p-2 mb-2 border border-zinc-300 rounded-md dark:border-zinc-600 dark:bg-zinc-800"
+                  changeHandler={(e) => handleFlashcardChange(index, e)}
+                  required={true}
                   maxLength={200}
                 />
                 <div className="flex">

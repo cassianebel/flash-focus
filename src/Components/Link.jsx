@@ -8,6 +8,8 @@ const Link = ({ text, link, style }) => {
   } else if (style === "secondary") {
     linkStyles =
       "border border-2 border-zinc-900 text-zinc-900 hover:bg-zinc-900 hover:text-zinc-300 dark:border-zinc-200 dark:text-zinc-200 dark:hover:bg-zinc-200 dark:hover:text-zinc-900";
+  } else if (style === "inline") {
+    linkStyles = "underline font-semibold px-1";
   }
   return (
     <NavLink to={link} className={`my-3 p-2 px-4 rounded-md ${linkStyles}`}>

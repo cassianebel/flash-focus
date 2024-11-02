@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import GoogleSignIn from "./SignInGoogle";
 import Button from "./Button";
 import Error from "./Error";
+import Input from "./Input";
+import Link from "./Link";
 
 function SignIn() {
   const [email, setEmail] = useState("");
@@ -41,23 +43,21 @@ function SignIn() {
       </h3>
       {error && <Error errorText={error} />}
       <form onSubmit={handleSignIn}>
-        <label htmlFor="email" className="block mx-2">
-          Email
-        </label>
-        <input
-          className="block w-full p-2 mb-2 border border-zinc-300 rounded-md dark:border-zinc-700 dark:bg-zinc-800"
+        <Input
+          label="Email"
+          name="email"
           type="email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          changeHandler={(e) => setEmail(e.target.value)}
+          required={true}
         />
-        <label htmlFor="password" className="block mx-2">
-          Password
-        </label>
-        <input
-          className="block w-full p-2 mb-2 border border-zinc-300 rounded-md dark:border-zinc-700 dark:bg-zinc-800"
+        <Input
+          label="Password"
+          name="password"
           type="password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          changeHandler={(e) => setPassword(e.target.value)}
+          required={true}
         />
         <Button text="Sign In" type="submit" style="primary" />
       </form>
@@ -65,12 +65,7 @@ function SignIn() {
       <GoogleSignIn />
       <p className="mt-5">
         No Account?{" "}
-        <button
-          onClick={() => navigate(`/flash-focus/signup`)}
-          className="underline font-semibold px-1"
-        >
-          Sign Up
-        </button>
+        <Link text="Sign Up" link="/flash-focus/signup" style="inline" />
       </p>
     </div>
   );
