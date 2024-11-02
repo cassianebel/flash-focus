@@ -115,7 +115,7 @@ const CreateDeck = ({ user }) => {
   }
 
   return (
-    <div className="w-5/6 mx-auto my-10">
+    <div className="w-5/6 max-w-screen-2xl mx-auto my-10">
       <form onSubmit={handleSubmit}>
         <div className="md:flex gap-5 items-center">
           <div className="grow">
@@ -194,6 +194,7 @@ const CreateDeck = ({ user }) => {
                   onChange={(e) => handleFlashcardChange(index, e)}
                   required
                   className="block w-full p-2 mb-2 border border-zinc-300 rounded-md dark:border-zinc-600 dark:bg-zinc-800"
+                  maxLength={200}
                 />
                 <label className="block mx-2">Answer / Back {index + 1}</label>
                 <input
@@ -203,6 +204,7 @@ const CreateDeck = ({ user }) => {
                   onChange={(e) => handleFlashcardChange(index, e)}
                   required
                   className="block w-full p-2 mb-2 border border-zinc-300 rounded-md dark:border-zinc-600 dark:bg-zinc-800"
+                  maxLength={200}
                 />
               </div>
             ))}

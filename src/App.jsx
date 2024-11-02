@@ -39,34 +39,36 @@ function App() {
   return (
     <div className={theme}>
       <div className="flex flex-col justify-between min-h-screen bg-zinc-300 text-zinc-900 dark:bg-zinc-900 dark:text-zinc-200">
-        <header className="flex justify-between items-center p-4 bg-zinc-200 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-300">
-          <h1 className="kaushan-script-regular text-2xl ">
-            <NavLink to="/flash-focus/">Flash Focus</NavLink>
-          </h1>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={toggleTheme}
-              className="text-xl px-4 py-2 rounded-full"
-            >
-              <IoInvertMode />
-              <span className="sr-only">Toggle Theme</span>
-            </button>
-            <NavLink
-              to="/flash-focus/decks"
-              className="text-xl px-4 py-2 rounded-full"
-            >
-              <GoStack />
-              <span className="sr-only">Flash Card Decks</span>
-            </NavLink>
-            <NavLink
-              to="/flash-focus/profile"
-              className="text-xl px-4 py-2 rounded-full"
-            >
-              <HiUserCircle />
-              <span className="sr-only">Profile</span>
-            </NavLink>
-          </div>
-        </header>
+        <div className="bg-zinc-200 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-300">
+          <header className="max-w-screen-2xl mx-auto flex justify-between items-center p-4 ">
+            <h1 className="kaushan-script-regular text-2xl ">
+              <NavLink to="/flash-focus/">Flash Focus</NavLink>
+            </h1>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={toggleTheme}
+                className="text-xl px-4 py-2 rounded-full"
+              >
+                <IoInvertMode />
+                <span className="sr-only">Toggle Theme</span>
+              </button>
+              <NavLink
+                to="/flash-focus/decks"
+                className="text-xl px-4 py-2 rounded-full"
+              >
+                <GoStack />
+                <span className="sr-only">Flash Card Decks</span>
+              </NavLink>
+              <NavLink
+                to="/flash-focus/profile"
+                className="text-xl px-4 py-2 rounded-full"
+              >
+                <HiUserCircle />
+                <span className="sr-only">Profile</span>
+              </NavLink>
+            </div>
+          </header>
+        </div>
         <Routes>
           <Route path="/" element={<Navigate to="/flash-focus/" />} />
           <Route path="/flash-focus/" element={<Home user={user} />} />

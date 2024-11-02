@@ -48,7 +48,7 @@ const Decks = ({ user }) => {
   };
 
   return (
-    <>
+    <div className="max-w-screen-2xl mx-auto">
       <div>
         <h2 className="my-5 text-center text-3xl kaushan-script-regular">
           Your Decks
@@ -109,7 +109,7 @@ const Decks = ({ user }) => {
           ))}
         </ul>
       </div>
-    </>
+    </div>
   );
 };
 
