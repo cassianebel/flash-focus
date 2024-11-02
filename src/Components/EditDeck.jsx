@@ -19,6 +19,7 @@ const EditDeck = ({ user }) => {
   const [deck, setDeck] = useState(null);
   const [cards, setCards] = useState([]);
   const [deckTitle, setDeckTitle] = useState("");
+  const [deckDescription, setDeckDescription] = useState("");
   const [deckColor, setDeckColor] = useState("red");
   const [isPublic, setIsPublic] = useState(false);
   const navigate = useNavigate();
@@ -40,6 +41,7 @@ const EditDeck = ({ user }) => {
           setIsPublic(deckSnapshot.data().public);
           setDeckColor(deckSnapshot.data().color);
           setDeckTitle(deckSnapshot.data().title);
+          setDeckDescription(deckSnapshot.data().description);
         } else {
           console.log("Deck not found");
         }
@@ -103,6 +105,7 @@ const EditDeck = ({ user }) => {
 
     const updatedData = {
       title: deckTitle,
+      description: deckDescription,
       color: deckColor,
       public: isPublic,
     };
@@ -259,6 +262,19 @@ const EditDeck = ({ user }) => {
               Make Deck Public
             </label>
           </div>
+        </div>
+        <div className="my-5">
+          <label htmlFor="deck-description" className="block mx-2">
+            Deck Description
+          </label>
+          <textarea
+            value={deckDescription}
+            id="deck-description"
+            name="deck-description"
+            onChange={(e) => setDeckDescription(e.target.value)}
+            required
+            className="block w-full p-2 mb-2 border border-zinc-300 rounded-md dark:border-zinc-600 dark:bg-zinc-800"
+          />
         </div>
         <div className="md:flex gap-5">
           <div className="my-5">

@@ -8,6 +8,7 @@ import Button from "./Button";
 
 const CreateDeck = ({ user }) => {
   const [deckTitle, setDeckTitle] = useState("");
+  const [deckDescription, setDeckDescription] = useState("");
   const [deckColor, setDeckColor] = useState("red");
   const [isPublic, setIsPublic] = useState(false);
   const [flashcards, setFlashcards] = useState([{ question: "", answer: "" }]);
@@ -64,6 +65,7 @@ const CreateDeck = ({ user }) => {
       // Add a new deck document to the "Decks" collection
       const deckRef = await addDoc(collection(db, "Decks"), {
         title: deckTitle,
+        description: deckDescription,
         public: isPublic,
         color: deckColor,
         userID: user.uid,
@@ -141,6 +143,17 @@ const CreateDeck = ({ user }) => {
             </label>
           </div>
         </div>
+        <div className="my-5">
+          <label htmlFor="deck-description" className="block mx-2">
+            Deck Description
+          </label>
+          <textarea
+            id="deck-description"
+            name="deck-description"
+            onChange={(e) => setDeckDescription(e.target.value)}
+            className="block w-full p-2 mb-2 border border-zinc-300 rounded-md dark:border-zinc-600 dark:bg-zinc-800"
+          />
+        </div>
         <div className="md:flex gap-5">
           <div className="my-5">
             <label htmlFor="deck-color" className="block mx-2">
@@ -213,7 +226,11 @@ const CreateDeck = ({ user }) => {
             </div>
           </div>
         </div>
-        <Button text="Create Deck" style="primary" type="submit" />
+        <div className="flex justify-center items center my-6 ">
+          <div className="me-3">
+            <Button text="Create Deck" style="primary" type="submit" />
+          </div>
+        </div>
       </form>
     </div>
   );

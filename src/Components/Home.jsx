@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
 import Card from "./Card";
 import Button from "./Button";
+import Link from "./Link";
 
 const Home = ({ user }) => {
   const [flipped, setFlipped] = useState(false);
@@ -52,34 +52,52 @@ const Home = ({ user }) => {
               What would you like to focus on today?
             </p>
             <div className="flex justify-center gap-5 flex-wrap my-10">
-              <NavLink
-                to="/flash-focus/decks"
-                className="p-2 px-4 bg-zinc-950 text-zinc-300 rounded-md hover:bg-zinc-900 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-50"
-              >
-                Study Existing Decks
-              </NavLink>
-              <NavLink
-                to="/flash-focus/create"
-                className="p-2 px-4 bg-zinc-950 text-zinc-300 rounded-md hover:bg-zinc-900 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-50"
-              >
-                Create a New Deck
-              </NavLink>
+              <Link
+                text="Study Existing Decks"
+                link="/flash-focus/decks"
+                style="primary"
+              />
+              <Link
+                text="Create a New Deck"
+                link="/flash-focus/create"
+                style="secondary"
+              />
             </div>
           </>
         ) : (
           <>
-            <h2 className="text-3xl kaushan-script-regular text-center my-10">
-              Intro to Flash Focus
-            </h2>
+            {cards.length !== 0 ? (
+              <h2 className="text-3xl kaushan-script-regular text-center my-10">
+                Intro to Flash Focus
+              </h2>
+            ) : (
+              <>
+                <h2 className="text-3xl kaushan-script-regular text-center my-10">
+                  Now Let's Get Started!
+                </h2>
+                <div className="flex justify-center gap-5 flex-wrap my-10">
+                  <Link
+                    text="Study Public Decks"
+                    link="/flash-focus/decks"
+                    style="primary"
+                  />
+                  <Link
+                    text="Sign Up to Create a New Deck"
+                    link="/flash-focus/signup"
+                    style="secondary"
+                  />
+                </div>
+              </>
+            )}
             <div className="card-container">
               {cards.map((card) => (
                 <Card key={card.id} setCards={setCards}>
-                  <div className="front flex items-center justify-center bg-zinc-400">
+                  <div className="front flex items-center justify-center bg-zinc-200 text-zinc-700 dark:bg-zinc-600 dark:text-zinc-100">
                     <p className="text-2xl text-center m-6">
                       {flipped ? card.answer : card.question}
                     </p>
                   </div>
-                  <div className="back flex items-center justify-center bg-zinc-400">
+                  <div className="back flex items-center justify-center bg-zinc-100 text-zinc-800 dark:bg-zinc-700 dark:text-zinc-200">
                     <p className="text-2xl text-center m-6 ">
                       {flipped ? card.question : card.answer}
                     </p>
@@ -91,9 +109,9 @@ const Home = ({ user }) => {
               <div className="flex justify-center my-10">
                 <div>
                   <Button
-                    text="Start Again"
-                    action={() => setCards([])}
-                    style="primary"
+                    text="Flip the Deck"
+                    action={() => setFlipped(!flipped)}
+                    style="secondary"
                   />
                 </div>
               </div>
