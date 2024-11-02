@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import GoogleSignIn from "./SignInGoogle";
 import Button from "./Button";
+import Error from "./Error";
 
 function SignUp() {
   const [email, setEmail] = useState("");
@@ -17,16 +18,26 @@ function SignUp() {
       await createUserWithEmailAndPassword(auth, email, password);
       navigate("/flash-focus/decks");
     } catch (error) {
-      setError(error.message);
+      console.log(error.code);
+      console.error(error);
+      if (error.code === "auth/missing-password") {
+        setError("Please enter a password.");
+      } else if (error.code === "auth/invalid-email") {
+        setError("Invalid email");
+      } else if (error.code === "auth/weak-password") {
+        setError("Password is too weak - must be at least 6 characters.");
+      } else {
+        setError(error.message);
+      }
     }
   };
 
   return (
-    <div className="min-w-80 mx-auto p-5">
+    <div className="min-w-80 max-w-sm mx-auto p-5">
       <h2 className="mb-5 text-center text-2xl kaushan-script-regular">
         Sign Up
       </h2>
-      {error && <p className="">{error}</p>}
+      {error && <Error errorText={error} />}
       <form onSubmit={handleSignUp}>
         <label htmlFor="email" className="block mx-2">
           Email

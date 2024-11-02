@@ -5,6 +5,7 @@ import { createUserInDatabase } from "../firestoreUtils";
 import { useNavigate } from "react-router-dom";
 import GoogleSignIn from "./SignInGoogle";
 import Button from "./Button";
+import Error from "./Error";
 
 function SignIn() {
   const [email, setEmail] = useState("");
@@ -21,16 +22,24 @@ function SignIn() {
       await createUserInDatabase({ email: authUser.email, uid: authUser.uid });
       // navigate("/flash-focus/decks");
     } catch (error) {
-      setError(error.message);
+      console.log(error.code);
+      console.error(error);
+      if (error.code === "auth/invalid-credential") {
+        setError("Invalid Credentials");
+      } else if (error.code === "auth/invalid-email") {
+        setError("Invalid email");
+      } else {
+        setError(error.message);
+      }
     }
   };
 
   return (
-    <div className="min-w-80 mx-auto p-5">
+    <div className="min-w-80 max-w-sm mx-auto p-5">
       <h3 className="mb-5 text-center text-2xl kaushan-script-regular">
         Sign In
       </h3>
-      {error && <p className="">{error}</p>}
+      {error && <Error errorText={error} />}
       <form onSubmit={handleSignIn}>
         <label htmlFor="email" className="block mx-2">
           Email
