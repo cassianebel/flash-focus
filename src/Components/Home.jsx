@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Card from "./Card";
 import Button from "./Button";
 import Link from "./Link";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 const Home = ({ user }) => {
   const [flipped, setFlipped] = useState(false);
@@ -38,6 +39,16 @@ const Home = ({ user }) => {
     if (nextCard[0]) {
       nextCard[0].focus();
     }
+  };
+
+  const handleLeftClick = () => {
+    const newCards = [...cards.slice(1)];
+    setCards(newCards);
+  };
+
+  const handleRightClick = () => {
+    const newCards = [...cards.slice(1), cards[0]];
+    setCards(newCards);
   };
 
   return (
@@ -89,21 +100,33 @@ const Home = ({ user }) => {
                 </div>
               </>
             )}
-            <div className="card-container">
-              {cards.map((card) => (
-                <Card key={card.id} setCards={setCards}>
-                  <div className="front flex items-center justify-center bg-zinc-200 text-zinc-700 dark:bg-zinc-600 dark:text-zinc-100">
-                    <p className="text-2xl text-center m-6">
-                      {flipped ? card.answer : card.question}
-                    </p>
-                  </div>
-                  <div className="back flex items-center justify-center bg-zinc-100 text-zinc-800 dark:bg-zinc-700 dark:text-zinc-200">
-                    <p className="text-2xl text-center m-6 ">
-                      {flipped ? card.question : card.answer}
-                    </p>
-                  </div>
-                </Card>
-              ))}
+            <div className="flex justify-center gap-5">
+              {cards.length > 0 && (
+                <button onClick={handleLeftClick} className="p-2">
+                  <IoIosArrowBack />
+                </button>
+              )}
+              <div className="card-container">
+                {cards.map((card) => (
+                  <Card key={card.id} setCards={setCards}>
+                    <div className="front flex items-center justify-center bg-zinc-200 text-zinc-700 dark:bg-zinc-600 dark:text-zinc-100">
+                      <p className="text-2xl text-center m-6">
+                        {flipped ? card.answer : card.question}
+                      </p>
+                    </div>
+                    <div className="back flex items-center justify-center bg-zinc-100 text-zinc-800 dark:bg-zinc-700 dark:text-zinc-200">
+                      <p className="text-2xl text-center m-6 ">
+                        {flipped ? card.question : card.answer}
+                      </p>
+                    </div>
+                  </Card>
+                ))}
+              </div>
+              {cards.length > 0 && (
+                <button onClick={handleRightClick} className="p-2">
+                  <IoIosArrowForward />
+                </button>
+              )}
             </div>
             {cards.length !== 0 && (
               <div className="flex justify-center my-10">

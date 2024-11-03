@@ -5,6 +5,7 @@ import { db } from "../firebase";
 import Card from "./Card";
 import Button from "./Button";
 import Link from "./Link";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 const Deck = ({ user }) => {
   const { deckId } = useParams();
@@ -50,6 +51,16 @@ const Deck = ({ user }) => {
   };
 
   const resetDeck = () => setCards(shuffleArray(initialCards));
+
+  const handleLeftClick = () => {
+    const newCards = [...cards.slice(1)];
+    setCards(newCards);
+  };
+
+  const handleRightClick = () => {
+    const newCards = [...cards.slice(1), cards[0]];
+    setCards(newCards);
+  };
 
   const bgColor = {
     red: "bg-red-400 dark:bg-red-900",
@@ -157,32 +168,45 @@ const Deck = ({ user }) => {
           >
             {deck.title}
           </h2>
-          <div className="card-container">
-            {cards.length === 0 ? (
-              <Button text="Start Again" action={resetDeck} style="primary" />
-            ) : (
-              cards.map((card) => (
-                <Card key={card.id} setCards={setCards}>
-                  <div
-                    className={`front flex items-center justify-center ${
-                      questionColor[deck.color]
-                    }`}
-                  >
-                    <p className="text-2xl text-center m-6">
-                      {flipped ? card.answer : card.question}
-                    </p>
-                  </div>
-                  <div
-                    className={`back flex items-center justify-center ${
-                      answerColor[deck.color]
-                    }`}
-                  >
-                    <p className="text-2xl text-center m-6 ">
-                      {flipped ? card.question : card.answer}
-                    </p>
-                  </div>
-                </Card>
-              ))
+          <div className="flex gap-5">
+            {cards.length > 0 && (
+              <button onClick={handleLeftClick} className="p-2">
+                <IoIosArrowBack />
+              </button>
+            )}
+
+            <div className="card-container">
+              {cards.length === 0 ? (
+                <Button text="Start Again" action={resetDeck} style="primary" />
+              ) : (
+                cards.map((card) => (
+                  <Card key={card.id} setCards={setCards}>
+                    <div
+                      className={`front flex items-center justify-center ${
+                        questionColor[deck.color]
+                      }`}
+                    >
+                      <p className="text-2xl text-center m-6">
+                        {flipped ? card.answer : card.question}
+                      </p>
+                    </div>
+                    <div
+                      className={`back flex items-center justify-center ${
+                        answerColor[deck.color]
+                      }`}
+                    >
+                      <p className="text-2xl text-center m-6 ">
+                        {flipped ? card.question : card.answer}
+                      </p>
+                    </div>
+                  </Card>
+                ))
+              )}
+            </div>
+            {cards.length > 0 && (
+              <button onClick={handleRightClick} className="p-2">
+                <IoIosArrowForward />
+              </button>
             )}
           </div>
           <div className="flex gap-5">
@@ -196,7 +220,7 @@ const Deck = ({ user }) => {
               </div>
             )}
 
-            {deck.userID === user.uid && (
+            {user && deck.userID === user.uid && (
               <Link
                 text="Edit the Deck"
                 link={`/flash-focus/edit/${deckId}`}
