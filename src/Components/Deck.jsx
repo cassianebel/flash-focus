@@ -170,7 +170,7 @@ const Deck = ({ user }) => {
           </h2>
           <div className="flex gap-5">
             {cards.length > 0 && (
-              <button onClick={handleLeftClick} className="p-2">
+              <button onClick={handleLeftClick} className="hidden sm:block p-2">
                 <IoIosArrowBack />
               </button>
             )}
@@ -204,7 +204,10 @@ const Deck = ({ user }) => {
               )}
             </div>
             {cards.length > 0 && (
-              <button onClick={handleRightClick} className="p-2">
+              <button
+                onClick={handleRightClick}
+                className="hidden sm:block p-2"
+              >
                 <IoIosArrowForward />
               </button>
             )}

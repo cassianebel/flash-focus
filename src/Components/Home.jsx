@@ -9,24 +9,25 @@ const Home = ({ user }) => {
   const [cards, setCards] = useState([
     {
       id: 1,
-      question: "Click the the card to reveal the other side.",
-      answer: "Swipe left or right to navigate the deck.",
+      question: "CLICK the the card to reveal the other side.",
+      answer:
+        "Swipe LEFT or RIGHT to NAVIGATE the deck. Or click the arrows on screen.",
     },
     {
       id: 2,
-      question: "A swipe right moves card to the back of the stack.",
+      question: "RIGHT: MOVES card to the BACK of the stack.",
       answer: "So you can review it later",
     },
     {
       id: 3,
-      question: "A swipe left removes the card from the stack.",
+      question: "LEFT: REMOVES the card from the stack.",
       answer: "So you don't have to see it again.",
     },
     {
       id: 4,
       question: "You can flip the entire deck by clicking the button below.",
       answer:
-        "This will show the 'answer' side of all the cards in the deck so you can study them from the other side.",
+        "This will show the 'answer' side of all the cards in the deck so you can study them Jeopardy! style.",
     },
   ]);
 
@@ -102,7 +103,10 @@ const Home = ({ user }) => {
             )}
             <div className="flex justify-center gap-5">
               {cards.length > 0 && (
-                <button onClick={handleLeftClick} className="p-2">
+                <button
+                  onClick={handleLeftClick}
+                  className="hidden sm:block p-2"
+                >
                   <IoIosArrowBack />
                 </button>
               )}
@@ -123,7 +127,10 @@ const Home = ({ user }) => {
                 ))}
               </div>
               {cards.length > 0 && (
-                <button onClick={handleRightClick} className="p-2">
+                <button
+                  onClick={handleRightClick}
+                  className="hidden sm:block p-2"
+                >
                   <IoIosArrowForward />
                 </button>
               )}
