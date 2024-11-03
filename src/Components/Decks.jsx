@@ -73,7 +73,7 @@ const Decks = ({ user }) => {
             ))}
           <li className="block">
             <NavLink
-              to="/flash-focus/create"
+              to="/create"
               className="flex flex-col justify-between h-full p-1 transition-all ease-in bg-zinc-200 hover:bg-zinc-100 dark:bg-zinc-800 hover:dark:bg-zinc-700"
             >
               <p className="font-light text-xl p-5">
