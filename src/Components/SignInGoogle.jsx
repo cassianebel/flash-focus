@@ -21,7 +21,7 @@ function GoogleSignIn() {
       const authUser = result.user;
       // Create or update user in Firestore
       await createUserInDatabase({ email: authUser.email, uid: authUser.uid });
-      // navigate("/flash-focus/decks");
+      // navigate("/decks");
     } catch (error) {
       console.error(error.message);
       if (

@@ -226,7 +226,7 @@ const Deck = ({ user }) => {
             {user && deck.userID === user.uid && (
               <Link
                 text="Edit the Deck"
-                link={`/flash-focus/edit/${deckId}`}
+                link={`/edit/${deckId}`}
                 style="secondary"
               />
             )}

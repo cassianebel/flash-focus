@@ -64,16 +64,8 @@ const Home = ({ user }) => {
               What would you like to focus on today?
             </p>
             <div className="flex justify-center gap-5 flex-wrap my-10">
-              <Link
-                text="Study Existing Decks"
-                link="/flash-focus/decks"
-                style="primary"
-              />
-              <Link
-                text="Create a New Deck"
-                link="/flash-focus/create"
-                style="secondary"
-              />
+              <Link text="Study Existing Decks" link="/decks" style="primary" />
+              <Link text="Create a New Deck" link="/create" style="secondary" />
             </div>
           </>
         ) : (
@@ -90,12 +82,12 @@ const Home = ({ user }) => {
                 <div className="flex justify-center gap-5 flex-wrap my-10">
                   <Link
                     text="Study Public Decks"
-                    link="/flash-focus/decks"
+                    link="/decks"
                     style="primary"
                   />
                   <Link
                     text="Sign Up to Create a New Deck"
-                    link="/flash-focus/signup"
+                    link="/signup"
                     style="secondary"
                   />
                 </div>

@@ -22,7 +22,7 @@ function SignIn() {
       const authUser = results.user;
       // Create or update user in Firestore
       await createUserInDatabase({ email: authUser.email, uid: authUser.uid });
-      // navigate("/flash-focus/decks");
+      // navigate("/decks");
     } catch (error) {
       console.log(error.code);
       console.error(error);
@@ -64,8 +64,7 @@ function SignIn() {
       <p className="my-2 text-center text-lg kaushan-script-regular">- OR -</p>
       <GoogleSignIn />
       <p className="mt-5">
-        No Account?{" "}
-        <Link text="Sign Up" link="/flash-focus/signup" style="inline" />
+        No Account? <Link text="Sign Up" link="/signup" style="inline" />
       </p>
     </div>
   );

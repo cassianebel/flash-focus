@@ -9,7 +9,7 @@ function SignOut() {
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
-        navigate("/flash-focus/profile");
+        navigate("/profile");
       })
       .catch((error) => {
         console.error("Error signing out:", error);

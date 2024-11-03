@@ -130,7 +130,7 @@ const EditDeck = ({ user }) => {
         }
       }
 
-      navigate(`/flash-focus/decks/${deckId}`);
+      navigate(`/decks/${deckId}`);
     } catch (error) {
       console.error("Error updating deck:", error);
     }
@@ -213,7 +213,7 @@ const EditDeck = ({ user }) => {
       const deckRef = doc(db, "Decks", deckId);
       await deleteDoc(deckRef);
       console.log("Deck deleted successfully!");
-      navigate("/flash-focus/decks");
+      navigate("/decks");
     } catch (error) {
       console.error("Error deleting deck:", error);
     }
@@ -360,7 +360,7 @@ const EditDeck = ({ user }) => {
             <Button
               text="Cancel"
               style="secondary"
-              action={() => navigate(`/flash-focus/decks/${deckId}`)}
+              action={() => navigate(`/decks/${deckId}`)}
             />
           </div>
         </div>

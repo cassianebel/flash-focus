@@ -82,7 +82,7 @@ const CreateDeck = ({ user }) => {
         });
       });
 
-      navigate(`/flash-focus/decks/${deckRef.id}`);
+      navigate(`/decks/${deckRef.id}`);
     } catch (error) {
       console.error("Error creating deck: ", error);
     }

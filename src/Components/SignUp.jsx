@@ -18,7 +18,7 @@ function SignUp() {
     e.preventDefault();
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      navigate("/flash-focus/decks");
+      navigate("/decks");
     } catch (error) {
       console.log(error.code);
       console.error(error);
@@ -62,8 +62,7 @@ function SignUp() {
       <p className="my-2 text-center text-lg kaushan-script-regular">- OR -</p>
       <GoogleSignIn />
       <p className="mt-5">
-        Have an Account?{" "}
-        <Link text="Sign In" link="/flash-focus/signin" style="inline" />
+        Have an Account? <Link text="Sign In" link="/signin" style="inline" />
       </p>
     </div>
   );
