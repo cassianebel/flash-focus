@@ -1,4 +1,10 @@
 import { useState, useEffect } from "react";
+import {
+  updateZIndex,
+  focusFirstCard,
+  handleLeftClick,
+  handleRightClick,
+} from "../deckUtils";
 import Card from "./Card";
 import Button from "./Button";
 import Link from "./Link";
@@ -32,25 +38,9 @@ const Home = ({ user }) => {
   ]);
 
   useEffect(() => {
+    updateZIndex(cards);
     focusFirstCard();
   }, [cards]);
-
-  const focusFirstCard = () => {
-    const nextCard = document.querySelectorAll(".card");
-    if (nextCard[0]) {
-      nextCard[0].focus();
-    }
-  };
-
-  const handleLeftClick = () => {
-    const newCards = [...cards.slice(1)];
-    setCards(newCards);
-  };
-
-  const handleRightClick = () => {
-    const newCards = [...cards.slice(1), cards[0]];
-    setCards(newCards);
-  };
 
   return (
     <>
@@ -96,7 +86,7 @@ const Home = ({ user }) => {
             <div className="flex justify-center gap-5">
               {cards.length > 0 && (
                 <button
-                  onClick={handleLeftClick}
+                  onClick={() => handleLeftClick(cards, setCards)}
                   className="hidden sm:block p-2"
                 >
                   <IoIosArrowBack />
@@ -120,7 +110,7 @@ const Home = ({ user }) => {
               </div>
               {cards.length > 0 && (
                 <button
-                  onClick={handleRightClick}
+                  onClick={() => handleRightClick(cards, setCards)}
                   className="hidden sm:block p-2"
                 >
                   <IoIosArrowForward />

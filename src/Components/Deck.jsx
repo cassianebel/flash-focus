@@ -2,6 +2,12 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { doc, getDoc, collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
+import {
+  updateZIndex,
+  focusFirstCard,
+  handleLeftClick,
+  handleRightClick,
+} from "../deckUtils";
 import Card from "./Card";
 import Button from "./Button";
 import Link from "./Link";
@@ -41,6 +47,11 @@ const Deck = ({ user }) => {
     fetchDeckAndCards();
   }, [deckId]);
 
+  useEffect(() => {
+    updateZIndex(cards);
+    focusFirstCard();
+  }, [cards]);
+
   // Fisher-Yates shuffle function
   const shuffleArray = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -51,16 +62,6 @@ const Deck = ({ user }) => {
   };
 
   const resetDeck = () => setCards(shuffleArray(initialCards));
-
-  const handleLeftClick = () => {
-    const newCards = [...cards.slice(1)];
-    setCards(newCards);
-  };
-
-  const handleRightClick = () => {
-    const newCards = [...cards.slice(1), cards[0]];
-    setCards(newCards);
-  };
 
   const bgColor = {
     red: "bg-red-400 dark:bg-red-900",
@@ -170,7 +171,10 @@ const Deck = ({ user }) => {
           </h2>
           <div className="flex gap-5">
             {cards.length > 0 && (
-              <button onClick={handleLeftClick} className="hidden sm:block p-2">
+              <button
+                onClick={() => handleLeftClick(cards, setCards)}
+                className="hidden sm:block p-2"
+              >
                 <IoIosArrowBack />
               </button>
             )}
@@ -205,7 +209,7 @@ const Deck = ({ user }) => {
             </div>
             {cards.length > 0 && (
               <button
-                onClick={handleRightClick}
+                onClick={() => handleRightClick(cards, setCards)}
                 className="hidden sm:block p-2"
               >
                 <IoIosArrowForward />
