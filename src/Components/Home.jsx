@@ -94,7 +94,7 @@ const Home = ({ user }) => {
               )}
               <div className="card-container">
                 {cards.map((card) => (
-                  <Card key={card.id} setCards={setCards}>
+                  <Card key={card.id} cards={cards} setCards={setCards}>
                     <div className="front flex items-center justify-center bg-zinc-200 text-zinc-700 dark:bg-zinc-600 dark:text-zinc-100">
                       <p className="text-2xl text-center m-6">
                         {flipped ? card.answer : card.question}

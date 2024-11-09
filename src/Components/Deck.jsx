@@ -184,7 +184,7 @@ const Deck = ({ user }) => {
                 <Button text="Start Again" action={resetDeck} style="primary" />
               ) : (
                 cards.map((card) => (
-                  <Card key={card.id} setCards={setCards}>
+                  <Card key={card.id} cards={cards} setCards={setCards}>
                     <div
                       className={`front flex items-center justify-center ${
                         questionColor[deck.color]

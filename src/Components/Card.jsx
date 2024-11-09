@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSwipeable } from "react-swipeable";
 
-const Card = ({ children, setCards }) => {
+const Card = ({ children, cards, setCards }) => {
   const [transform, setTransform] = useState({ x: 0, y: 0 });
   const [opacity, setOpacity] = useState(1);
   const [cardVisible, setCardVisible] = useState(true);
@@ -72,13 +72,30 @@ const Card = ({ children, setCards }) => {
 
   const handleKeyDown = (e) => {
     if (e.key === "ArrowLeft") {
-      swipeOut(-100);
-      setCardVisible(false);
-      setCards((prevCards) => prevCards.slice(1));
+      e.target.classList.remove("flipped");
+      e.target.classList.add("move-left");
+      e.target.addEventListener(
+        "animationend",
+        () => {
+          const newCards = [...cards.slice(1)];
+          setCards(newCards);
+        },
+        { once: true }
+      );
       focusNextCard();
     } else if (e.key === "ArrowRight") {
-      swipeOut(100);
-      snapBack();
+      e.target.classList.remove("flipped");
+      e.target.classList.add("move-right");
+      e.target.addEventListener(
+        "animationend",
+        () => {
+          const newCards = [...cards.slice(1), cards[0]];
+          setCards(newCards);
+          e.target.classList.remove("move-right");
+          //updateZIndex(cards);
+        },
+        { once: true }
+      );
       setCards((prevCards) => [...prevCards.slice(1), prevCards[0]]);
       focusNextCard();
     }
