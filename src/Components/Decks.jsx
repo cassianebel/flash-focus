@@ -12,6 +12,7 @@ const Decks = ({ user }) => {
     const fetchDecksData = async () => {
       const decksData = await fetchPublicDecks();
       setPublicDecks(decksData);
+      if (!user || !user.uid) return;
       const userDecksData = await fetchPrivateDecks(user.uid);
       setPrivateDecks(userDecksData);
     };
@@ -81,7 +82,7 @@ const Decks = ({ user }) => {
               </p>
               <h3 className="flex items-center justify-center gap-3 r p-2 text-center text-2xl font-extrabold bg-zinc-900 text-zinc-300 hover:bg-zinc-800 hover:text-zinc-100 dark:bg-zinc-200  dark:text-zinc-900 dark:hover:bg-zinc-100 rounded-md">
                 <IoIosAddCircle />
-                <sppan>Create a Deck</sppan>
+                <span>Create a Deck</span>
               </h3>
             </NavLink>
           </li>

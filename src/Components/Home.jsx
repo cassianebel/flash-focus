@@ -9,6 +9,9 @@ import Card from "./Card";
 import Button from "./Button";
 import Link from "./Link";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { IoInvertMode } from "react-icons/io5";
+import { GoStack } from "react-icons/go";
+import { HiUserCircle } from "react-icons/hi2";
 
 const Home = ({ user }) => {
   const [flipped, setFlipped] = useState(false);
@@ -17,20 +20,25 @@ const Home = ({ user }) => {
       id: 1,
       question: "CLICK the the card to reveal the other side.",
       answer:
-        "Swipe LEFT or RIGHT to NAVIGATE the deck. Or click the arrows on screen.",
+        "Click the LEFT arrow to remove the card from the stack or the RIGHT arrow to move it to the back of the stack. (swipe on mobile)",
     },
     {
       id: 2,
-      question: "RIGHT: MOVES card to the BACK of the stack.",
-      answer: "So you can review it later",
+      question: "Guess which icon in the top right corner toggles the theme.",
+      answer: <IoInvertMode />,
     },
     {
       id: 3,
-      question: "LEFT: REMOVES the card from the stack.",
-      answer: "So you don't have to see it again.",
+      question: "Guess which icon takes you to the deck list.",
+      answer: <GoStack />,
     },
     {
       id: 4,
+      question: "Guess which icon takes you to sign in or out.",
+      answer: <HiUserCircle />,
+    },
+    {
+      id: 5,
       question: "You can flip the entire deck by clicking the button below.",
       answer:
         "This will show the 'answer' side of all the cards in the deck so you can study them Jeopardy! style.",
@@ -71,7 +79,7 @@ const Home = ({ user }) => {
                 </h2>
                 <div className="flex justify-center gap-5 flex-wrap my-10">
                   <Link
-                    text="Study Public Decks"
+                    text="View Public Decks"
                     link="/decks"
                     style="primary"
                   />

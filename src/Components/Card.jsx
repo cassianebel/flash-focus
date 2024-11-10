@@ -56,16 +56,24 @@ const Card = ({ children, cards, setCards }) => {
       setTransform({ x: eventData.deltaX, y: 0 });
     },
     onSwipedLeft: () => {
-      swipeOut(-100);
-      setCardVisible(false); // Remove card after animation
-      setCards((prevCards) => prevCards.slice(1)); // Remove the card from the deck
-      setIsSwiping(false);
+      const cardElements = document.querySelectorAll(".card");
+      if (cardElements[0]) {
+        cardElements[0].classList.remove("flipped");
+        swipeOut(-100);
+        setCardVisible(false); // Remove card after animation
+        setCards((prevCards) => prevCards.slice(1)); // Remove the card from the deck
+        setIsSwiping(false);
+      }
     },
     onSwipedRight: () => {
-      swipeOut(100);
-      snapBack();
-      setCards((prevCards) => [...prevCards.slice(1), prevCards[0]]); // move the card to the end of the deck
-      setIsSwiping(false);
+      const cardElements = document.querySelectorAll(".card");
+      if (cardElements[0]) {
+        cardElements[0].classList.remove("flipped");
+        swipeOut(100);
+        snapBack();
+        setCards((prevCards) => [...prevCards.slice(1), prevCards[0]]); // move the card to the end of the deck
+        setIsSwiping(false);
+      }
     },
     trackMouse: true, // Allows mouse swiping
   });
