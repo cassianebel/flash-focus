@@ -1,23 +1,26 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { fetchPublicDecks, fetchPrivateDecks } from "../firestoreUtils";
-import Link from "./Link";
 import { IoIosAddCircle } from "react-icons/io";
 
 const Decks = ({ user }) => {
   const [publicDecks, setPublicDecks] = useState([]);
+  const [publicLoading, setPublicLoading] = useState(true);
   const [privateDecks, setPrivateDecks] = useState([]);
+  const [privateLoading, setPrivateLoading] = useState(true);
 
   useEffect(() => {
     const fetchDecksData = async () => {
       const decksData = await fetchPublicDecks();
       setPublicDecks(decksData);
+      setPublicLoading(false);
       if (!user || !user.uid) return;
       const userDecksData = await fetchPrivateDecks(user.uid);
       setPrivateDecks(userDecksData);
+      setPrivateLoading(false);
     };
     fetchDecksData();
-  }, []);
+  }, [user]);
 
   const bgColor = {
     red: "bg-red-400 hover:bg-red-300 dark:bg-red-700 dark:hover:bg-red-600",
@@ -54,10 +57,53 @@ const Decks = ({ user }) => {
         <h2 className="my-5 text-center text-3xl kaushan-script-regular">
           Your Decks
         </h2>
-        <ul className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5 mx-5">
-          {user &&
-            user.uid &&
-            privateDecks.map((deck) => (
+        {user && user.uid && privateLoading ? (
+          <div className="loader">Loading...</div>
+        ) : (
+          <ul className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5 mx-5">
+            {user &&
+              user.uid &&
+              privateDecks.map((deck) => (
+                <li key={deck.id} className="block">
+                  <NavLink
+                    to={`${deck.id}`}
+                    className={`flex flex-col justify-between h-full p-1 transition-all ease-in ${
+                      bgColor[deck.color]
+                    }`}
+                  >
+                    <p className="font-light text-xl p-5">{deck.description}</p>
+                    <h3 className="p-2 text-center text-2xl font-extrabold bg-zinc-50 bg-opacity-30 rounded-md">
+                      {deck.title}
+                    </h3>
+                  </NavLink>
+                </li>
+              ))}
+            <li className="block">
+              <NavLink
+                to="/create"
+                className="flex flex-col justify-between h-full p-1 transition-all ease-in bg-zinc-200 hover:bg-zinc-100 dark:bg-zinc-800 hover:dark:bg-zinc-700"
+              >
+                <p className="font-light text-xl p-5">
+                  Ready to challenge yourself? Create a new deck!
+                </p>
+                <h3 className="flex items-center justify-center gap-3 r p-2 text-center text-2xl font-extrabold bg-zinc-900 text-zinc-300 hover:bg-zinc-800 hover:text-zinc-100 dark:bg-zinc-200  dark:text-zinc-900 dark:hover:bg-zinc-100 rounded-md">
+                  <IoIosAddCircle />
+                  <span>Create a Deck</span>
+                </h3>
+              </NavLink>
+            </li>
+          </ul>
+        )}
+      </div>
+      <div className="max-w-screen-2xl mx-auto my-10">
+        <h2 className="my-5 text-center text-3xl kaushan-script-regular">
+          Public Decks
+        </h2>
+        {publicLoading ? (
+          <div className="loader">Loading...</div>
+        ) : (
+          <ul className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4  gap-5 mx-5">
+            {publicDecks.map((deck) => (
               <li key={deck.id} className="block">
                 <NavLink
                   to={`${deck.id}`}
@@ -72,43 +118,8 @@ const Decks = ({ user }) => {
                 </NavLink>
               </li>
             ))}
-          <li className="block">
-            <NavLink
-              to="/create"
-              className="flex flex-col justify-between h-full p-1 transition-all ease-in bg-zinc-200 hover:bg-zinc-100 dark:bg-zinc-800 hover:dark:bg-zinc-700"
-            >
-              <p className="font-light text-xl p-5">
-                Ready to challenge yourself? Create a new deck!
-              </p>
-              <h3 className="flex items-center justify-center gap-3 r p-2 text-center text-2xl font-extrabold bg-zinc-900 text-zinc-300 hover:bg-zinc-800 hover:text-zinc-100 dark:bg-zinc-200  dark:text-zinc-900 dark:hover:bg-zinc-100 rounded-md">
-                <IoIosAddCircle />
-                <span>Create a Deck</span>
-              </h3>
-            </NavLink>
-          </li>
-        </ul>
-      </div>
-      <div className="max-w-screen-2xl mx-auto mt-10">
-        <h2 className="my-5 text-center text-3xl kaushan-script-regular">
-          Public Decks
-        </h2>
-        <ul className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4  gap-5 mx-5">
-          {publicDecks.map((deck) => (
-            <li key={deck.id} className="block">
-              <NavLink
-                to={`${deck.id}`}
-                className={`flex flex-col justify-between h-full p-1 transition-all ease-in ${
-                  bgColor[deck.color]
-                }`}
-              >
-                <p className="font-light text-xl p-5">{deck.description}</p>
-                <h3 className="p-2 text-center text-2xl font-extrabold bg-zinc-50 bg-opacity-30 rounded-md">
-                  {deck.title}
-                </h3>
-              </NavLink>
-            </li>
-          ))}
-        </ul>
+          </ul>
+        )}
       </div>
     </>
   );

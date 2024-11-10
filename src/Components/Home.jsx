@@ -18,7 +18,8 @@ const Home = ({ user }) => {
   const [cards, setCards] = useState([
     {
       id: 1,
-      question: "CLICK the the card to reveal the other side.",
+      question:
+        "CLICK the the card to reveal the other side. (hit ENTER or SPACEBAR on keyboard)",
       answer:
         "Click the LEFT arrow to remove the card from the stack or the RIGHT arrow to move it to the back of the stack. (swipe on mobile)",
     },
@@ -75,7 +76,7 @@ const Home = ({ user }) => {
             ) : (
               <>
                 <h2 className="text-3xl kaushan-script-regular text-center my-10">
-                  Now Let's Get Started!
+                  Let's Get Started!
                 </h2>
                 <div className="flex justify-center gap-5 flex-wrap my-10">
                   <Link

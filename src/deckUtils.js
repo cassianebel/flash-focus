@@ -15,6 +15,7 @@ export const focusFirstCard = () => {
 export const handleLeftClick = (cards, setCards) => {
   const cardElements = document.querySelectorAll(".card");
   if (cardElements[0]) {
+    cardElements[0].classList.remove("flipped");
     cardElements[0].classList.add("move-left");
     cardElements[0].addEventListener(
       "animationend",
@@ -29,7 +30,6 @@ export const handleLeftClick = (cards, setCards) => {
 
 export const handleRightClick = (cards, setCards) => {
   const cardElements = document.querySelectorAll(".card");
-  console.log(cardElements);
   if (cardElements[0]) {
     cardElements[0].classList.remove("flipped");
     cardElements[0].classList.add("move-right");

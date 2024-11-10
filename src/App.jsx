@@ -39,7 +39,7 @@ function App() {
   return (
     <div className={theme}>
       <div className="flex flex-col justify-between min-h-screen bg-zinc-300 text-zinc-900 dark:bg-zinc-900 dark:text-zinc-200">
-        <div className="bg-zinc-200 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-300">
+        <div className="bg-zinc-200 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-300 shadow-md">
           <header className="max-w-screen-2xl mx-auto flex justify-between items-center p-4 ">
             <h1 className="kaushan-script-regular text-2xl ">
               <NavLink to="/">Flash Focus</NavLink>
